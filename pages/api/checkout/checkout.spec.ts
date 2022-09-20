@@ -5,7 +5,6 @@ import handleCheckout, {
   withoutAuthorizationCard,
   withoutFundsCard,
 } from "dh-marvel/pages/api/checkout/index.route";
-import { CheckoutInput } from "types/ICheckout.type";
 import {
   ERROR_CARD_DATA_INCORRECT,
   ERROR_CARD_WITHOUT_AUTHORIZATION,
@@ -14,14 +13,15 @@ import {
   ERROR_METHOD_NOT_ALLOWED,
   ERROR_SERVER,
 } from "dh-marvel/services/checkout/checkout.errors";
+import { ICheckout } from "types/ICheckout.type";
 
 describe("Checkout", () => {
   describe("when sending a valid POST, customer and card data", () => {
-    it("should return a 400 error", async () => {
+    it("should return status 200", async () => {
       const order = {
         customer: { address: {} },
         card: { number: validCard },
-      } as CheckoutInput;
+      } as ICheckout;
       const { req, res } = createMocks({
         method: "POST",
         body: order,
@@ -51,7 +51,7 @@ describe("Checkout", () => {
         method: "POST",
         body: {
           customer: { address: { address2: invalidAddress } },
-        } as CheckoutInput,
+        } as ICheckout,
       });
       await handleCheckout(req, res);
       expect(res._getStatusCode()).toBe(400);
@@ -64,7 +64,7 @@ describe("Checkout", () => {
     it("should return a 500 error", async () => {
       const { req, res } = createMocks({
         method: "POST",
-        body: {} as CheckoutInput,
+        body: {} as ICheckout,
       });
       await handleCheckout(req, res);
       expect(res._getStatusCode()).toBe(500);
@@ -80,7 +80,7 @@ describe("Checkout", () => {
         body: {
           customer: { address: {} },
           card: { number: withoutFundsCard },
-        } as CheckoutInput,
+        } as ICheckout,
       });
       await handleCheckout(req, res);
       expect(res._getStatusCode()).toBe(400);
@@ -96,7 +96,7 @@ describe("Checkout", () => {
         body: {
           customer: { address: {} },
           card: { number: withoutAuthorizationCard },
-        } as CheckoutInput,
+        } as ICheckout,
       });
       await handleCheckout(req, res);
       expect(res._getStatusCode()).toBe(400);
@@ -112,7 +112,7 @@ describe("Checkout", () => {
         body: {
           customer: { address: {} },
           card: { number: "4111" },
-        } as CheckoutInput,
+        } as ICheckout,
       });
       await handleCheckout(req, res);
       expect(res._getStatusCode()).toBe(400);

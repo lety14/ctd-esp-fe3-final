@@ -38,7 +38,7 @@ export interface IDate {
 
 export interface IPrice {
   type: "printPrice" | string;
-  date: number;
+  price: number;
 }
 
 export interface IThumbnail {

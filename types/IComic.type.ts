@@ -32,7 +32,7 @@ export interface IComic {
   issueNumber: number;
   variantDescription: string;
   description: string | null;
-  modified: Date;
+  modified: string;
   isbn: string;
   upc: string;
   diamondCode: string;
@@ -49,9 +49,9 @@ export interface IComic {
   collectedIssues: IItem[] | [];
   dates: IDate[];
   prices: IPrice[];
-  price?: number;
-  oldPrice?: number;
-  stock?: number;
+  price: number;
+  oldPrice: number;
+  stock: number;
   thumbnail: IThumbnail;
   images: ILink[] | [];
   creators: ISummary;

@@ -13,11 +13,8 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  // const query = req.query;
-  // const { character_id } = query as Query;
+  res.setHeader("Content-Type", "application/json");
 
-  // const characterId = parseInt(character_id);
-  // res.setHeader("Content-Type", "application/json");
   const {
     query: { id, limit },
   } = req;

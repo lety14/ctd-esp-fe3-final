@@ -20,6 +20,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   const query = req.query;
+
   const { offset, limit } = query as Query;
 
   const offsetInt = parseInt(offset);

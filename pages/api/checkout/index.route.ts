@@ -1,5 +1,4 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { CheckoutInput } from "types/ICheckout.type";
 import {
   ERROR_CARD_DATA_INCORRECT,
   ERROR_CARD_WITHOUT_AUTHORIZATION,
@@ -8,6 +7,7 @@ import {
   ERROR_METHOD_NOT_ALLOWED,
   ERROR_SERVER,
 } from "dh-marvel/services/checkout/checkout.errors";
+import { ICheckout } from "types/ICheckout.type";
 
 export const invalidAddress = "invalid";
 export const validCard = "4242 4242 4242 4242".replace(" ", "");
@@ -32,7 +32,7 @@ export default function handler(
     return;
   }
   try {
-    const body: CheckoutInput = req.body;
+    const body: ICheckout = req.body;
     if (body.customer.address.address2 === invalidAddress) {
       res.status(400).json(ERROR_INCORRECT_ADDRESS);
       return;

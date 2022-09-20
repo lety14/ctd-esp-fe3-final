@@ -45,7 +45,6 @@ export default async function handler(
 
     res.status(400).json(ERROR_BAD_REQUEST);
   } catch (err) {
-    console.log(err);
     res.status(500).json(ERROR_SERVER);
   }
 }

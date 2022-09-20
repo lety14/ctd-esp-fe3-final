@@ -8,7 +8,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Head from "next/head";
 import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
 import { Box } from "@mui/material";
-import { faqsData } from "constants/faqs/faqsData";
+import { faqsData } from "../../constants/faqs/faqsData";
 
 const Faqs: NextPage = () => {
   return (
@@ -24,22 +24,20 @@ const Faqs: NextPage = () => {
         <BodySingle title={"Preguntas Frecuentes"}></BodySingle>
         {faqsData.map((faq) => {
           return (
-            <>
-              <Accordion key={faq.id}>
-                <AccordionSummary
-                  expandIcon={<ExpandMoreIcon />}
-                  aria-controls="panel1a-content"
-                  id="panel1a-header"
-                >
-                  <Typography sx={{ fontWeight: "bold" }}>
-                    {faq.question}
-                  </Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                  <Typography>{faq.answer}</Typography>
-                </AccordionDetails>
-              </Accordion>
-            </>
+            <Accordion key={faq.id}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+              >
+                <Typography sx={{ fontWeight: "bold" }}>
+                  {faq.question}
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography>{faq.answer}</Typography>
+              </AccordionDetails>
+            </Accordion>
           );
         })}
       </Box>

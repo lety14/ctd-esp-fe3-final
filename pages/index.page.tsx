@@ -1,17 +1,14 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import BodySingle from "dh-marvel/components/layouts/body/single/body-single";
-import { ICharacter, ICharacterResponse } from "types/ICharacter.type";
-import md5 from "md5";
 import CardComponent from "dh-marvel/components/card/card.component";
 import { Box } from "@mui/system";
-import { Container, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import PaginationComponent from "dh-marvel/components/pagination/pagination.component";
-import { useEffect, useMemo, useState } from "react";
-import { getComics } from "dh-marvel/services/marvel/marvel.service";
-import { IComic, IComicResponse } from "types/IComic.type";
+import { useEffect, useState } from "react";
+import { IComicResponse } from "types/IComic.type";
 import { getComicsByPage } from "dh-marvel/services/comic/comic.service";
 import { useRouter } from "next/router";
+import { getComics } from "dh-marvel/services/marvel/marvel.service";
 
 interface Props {
   comics: IComicResponse;
