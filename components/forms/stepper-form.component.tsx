@@ -7,10 +7,10 @@ import {
   StepButton,
   Stack,
 } from "@mui/material";
-import PersonalDataForm from "./personal-form/personal-data-form.component";
 import DeliveryForm from "./delivery-form/delivery-form.component";
 import PaymentForm from "./payment-form/payment-form.component";
 import { IAddress, ICard, ICheckout, ICustomer } from "types/ICheckout.type";
+import CustomerDataForm from "./customer-form/customer-data-form.component";
 
 const steps = ["Datos Personales", "Dirección de entrega", "Datos del pago"];
 
@@ -97,7 +97,7 @@ export default function StepperForm() {
       <Box sx={{ padding: "50px 20px", width: "900px" }}>
         <Typography variant="h5">Paso {activeStep + 1}</Typography>
         {activeStep === 0 && (
-          <PersonalDataForm
+          <CustomerDataForm
             data={checkoutData.customer}
             activeStep={activeStep}
             handleNext={handleSubmitCustomerForm}

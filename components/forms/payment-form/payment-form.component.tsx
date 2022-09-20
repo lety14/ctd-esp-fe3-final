@@ -9,13 +9,13 @@ import { Box, Grid } from "@mui/material";
 import StepperNavigation from "../stepper-navigation.component";
 import { ICard } from "types/ICheckout.type";
 
-export type CheckoutFormProps = {
+export type PaymentFormProps = {
   activeStep: number;
   handleNext: (data: ICard) => void;
   handleBack: () => void;
 };
 
-const PaymentForm: FC<CheckoutFormProps> = ({
+const PaymentForm: FC<PaymentFormProps> = ({
   activeStep,
   handleNext,
   handleBack,
@@ -55,7 +55,6 @@ const PaymentForm: FC<CheckoutFormProps> = ({
 
   const onSubmit = (data: ICard) => {
     handleNext(data);
-    return JSON.stringify(data);
   };
 
   return (
@@ -90,7 +89,7 @@ const PaymentForm: FC<CheckoutFormProps> = ({
               />
               <ControlledTextInput
                 name="expDate"
-                label="Vencimiento"
+                label="Fecha expiración"
                 regex={regexNumber}
                 maxLength={4}
               />

@@ -29,9 +29,7 @@ const DeliveryForm: FC<DeliveryFormProps> = ({
   const { setFocus, handleSubmit } = methods;
 
   const onSubmit = (data: IAddress) => {
-    console.log(JSON.stringify(data));
     handleNext(data);
-    return JSON.stringify(data);
   };
   useEffect(() => {
     console.log(data);

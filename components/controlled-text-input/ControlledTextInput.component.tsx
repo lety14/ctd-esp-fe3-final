@@ -56,6 +56,7 @@ const ControlledTextInput: FC<ControlledTextInputProps> = ({
         onChange={onChange}
         value={inputValue(value)}
         label={label}
+        name={name}
         inputRef={ref}
         type={showPassword ? "text" : type}
         inputProps={{ maxLength: maxLength }}
