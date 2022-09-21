@@ -2,7 +2,7 @@ import type { NextPage } from "next";
 import Head from "next/head";
 import CardComponent from "dh-marvel/components/card/card.component";
 import { Box } from "@mui/system";
-import { Grid } from "@mui/material";
+import { Grid, Stack } from "@mui/material";
 import PaginationComponent from "dh-marvel/components/pagination/pagination.component";
 import { useEffect, useState } from "react";
 import { IComicResponse } from "types/IComic.type";
@@ -59,7 +59,16 @@ const Index: NextPage<Props> = ({ comics }) => {
         <title>DH MARVEL</title>
         <meta name="description" content="Sitio DH MARVEL" />
       </Head>
-      <Box component="section" maxWidth="xl">
+      <Stack
+        component="section"
+        maxWidth="xl"
+        direction="column"
+        spacing={10}
+        alignItems="center"
+        paddingY={15}
+        paddingX={{ xs: 3, sm: 4, md: 4 }}
+      >
+        {/* <Box > */}
         <Grid
           container
           alignItems="stretch"
@@ -72,7 +81,8 @@ const Index: NextPage<Props> = ({ comics }) => {
           pagesQty={pagesQty}
           setCurrentPage={setCurrentPage}
         />
-      </Box>
+        {/* </Box> */}
+      </Stack>
     </>
   );
 };
