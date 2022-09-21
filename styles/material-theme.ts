@@ -10,11 +10,13 @@ declare module "@mui/material/Button" {
   }
 }
 
-export const theme = createTheme({
-  //   typography: {
-  //     fontFamily: "Roboto, sans-serif",
-  //     },
+declare module "@mui/material/Card" {
+  interface CardPropsVariantOverrides {
+    cardProduct: true;
+  }
+}
 
+export const theme = createTheme({
   typography: {
     fontFamily: "Roboto Mono, sans-serif",
     subtitle1: {
@@ -25,31 +27,40 @@ export const theme = createTheme({
     },
     button: {
       fontWeight: 900,
-      //   fontFamily: "Annonymous Pro,sans-serif",
     },
 
     h5: {
       fontSize: 20,
       fontWeight: 900,
-      //   fontFamily: "Annonymous Pro,sans-serif",
     },
   },
 
   components: {
     /* ---- CARD ---- */
     MuiCard: {
-      styleOverrides: {
-        root: {
-          height: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-
-          border: "2px solid #000",
-          borderRadius: 0,
-          //   boxShadow: "5px 5px",
+      // styleOverrides: {
+      //   root: {
+      //     height: "100%",
+      //     display: "flex",
+      //     flexDirection: "column",
+      //     justifyContent: "space-between",
+      //     border: "2px solid #000",
+      //     borderRadius: 0,
+      //   },
+      // },
+      variants: [
+        {
+          props: { variant: "outlined" },
+          style: {
+            height: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            border: "1px solid #000",
+            borderRadius: 0,
+          },
         },
-      },
+      ],
     },
     /* ---- CARD MEDIA ---- */
     MuiCardMedia: {
@@ -66,8 +77,6 @@ export const theme = createTheme({
     MuiCardContent: {
       styleOverrides: {
         root: {
-          //   backgroundColor: "red",
-          //   borderBottom: "1px solid #000"
           borderTop: "2px solid #000",
         },
       },
@@ -76,8 +85,6 @@ export const theme = createTheme({
     MuiCardActions: {
       styleOverrides: {
         root: {
-          //   backgroundColor: "red",
-          //   height: "auto",
           padding: 15,
           justifyContent: "space-between",
         },
@@ -99,13 +106,10 @@ export const theme = createTheme({
             textTransform: "none",
             border: `2px solid #000`,
             backgroundColor: "#b0d7ff",
-            // backgroundColor: "#780000",
-
             borderRadius: 0,
             fontSize: 15,
             fontWeight: 700,
             boxShadow: "2.5px 2.5px",
-
             padding: "8px 15px",
           },
         },
