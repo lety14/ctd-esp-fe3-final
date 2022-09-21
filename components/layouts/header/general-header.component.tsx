@@ -48,7 +48,12 @@ const Header: FC<Props> = ({ variant }: Props) => {
 
 const GeneralHeader: FC<Props> = ({ variant }: Props) => {
   return variant == "general" ? (
-    <AppBar position="static">
+    <AppBar
+      position="static"
+      sx={{
+        backgroundColor: "#000",
+      }}
+    >
       <Header variant={variant} />
     </AppBar>
   ) : (
