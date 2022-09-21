@@ -152,7 +152,7 @@ const Comic: NextPage<Props> = ({ comic }) => {
                 </Box>
               </AccordionCollapsible>
               <AccordionCollapsible title={"Creadores"}>
-                <Box>
+               {(<Box>
                   {comic.creators.items.map((creator) => {
                     return (
                       <Typography variant="body2" key={creator.name}>
@@ -160,7 +160,11 @@ const Comic: NextPage<Props> = ({ comic }) => {
                       </Typography>
                     );
                   })}
-                </Box>
+                </Box>: (
+                    <Typography variant="body2">
+                      Sin listado de creadores disponible.
+                    </Typography>
+                  )}
               </AccordionCollapsible>
             </Box>
           </Grid>

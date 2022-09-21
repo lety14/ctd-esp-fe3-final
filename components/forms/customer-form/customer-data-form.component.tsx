@@ -28,7 +28,6 @@ const CustomerDataForm: FC<CustomerDataProps> = ({
   const onSubmit = (data: ICustomer) => {
     handleNext(data);
   };
-
   useEffect(() => {
     setFocus("name");
   }, []);
