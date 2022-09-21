@@ -4,19 +4,20 @@ import { getComic } from "dh-marvel/services/marvel/marvel.service";
 import { IComic, IComicResponse } from "types/IComic.type";
 
 //type Data = IComicResponse | { error: string; message: string };
-type Data = IComicResponse | { error: string; message: string };
+type Data = IComic | { error: string; message: string };
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
-  const { id } = req.body;
+  const { id } = req.query;
   res.setHeader("Content-Type", "application/json");
-  const idNumber = parseInt(id);
-  try {
-    const result = await getComic(idNumber);
+  const idNumber = parseInt(`${id}`);
 
-    return result;
+  try {
+    const result: IComic = await getComic(idNumber);
+    res.status(200).json(result);
+    return;
   } catch (err) {
     console.log(err);
     res.status(500).json(ERROR_SERVER);
