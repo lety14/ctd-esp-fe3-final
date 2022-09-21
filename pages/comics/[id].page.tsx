@@ -24,8 +24,6 @@ interface Props {
 const Comic: NextPage<Props> = ({ comic }) => {
   const router = useRouter();
 
-  const offert = percentageOff(comic.oldPrice, comic.price);
-
   if (router.isFallback === true) {
     return <div>loading...</div>;
   }
@@ -82,20 +80,23 @@ const Comic: NextPage<Props> = ({ comic }) => {
                     display: "flex",
                   }}
                 >
-                  <Typography
-                    variant="h6"
-                    color="text.secondary"
-                    sx={{
-                      textDecoration: "line-through",
-                      marginBottom: "5px",
-                      paddingRight: "15px",
-                    }}
-                  >
-                    ${comic.oldPrice}
-                  </Typography>
-                  {offert > 0 && (
+                  {comic.oldPrice && (
+                    <Typography
+                      variant="h6"
+                      color="text.secondary"
+                      sx={{
+                        textDecoration: "line-through",
+                        marginBottom: "5px",
+                        paddingRight: "15px",
+                      }}
+                    >
+                      ${comic.oldPrice}
+                    </Typography>
+                  )}
+
+                  {percentageOff() > 0 && (
                     <Typography variant="h6" color="text.secondary">
-                      {offert}% OFF!
+                      {percentageOff()}% OFF!
                     </Typography>
                   )}
                 </Box>
