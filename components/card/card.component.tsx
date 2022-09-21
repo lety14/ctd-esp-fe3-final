@@ -5,7 +5,7 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { CardActionArea } from "@mui/material";
+import { Box, CardActionArea } from "@mui/material";
 import { IComic } from "types/IComic.type";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
@@ -19,9 +19,10 @@ const CardComponent: FC<Props> = ({ comic }) => {
 
   return (
     <Card
-    // sx={{ maxWidth: 380 }}
+      variant="outlined"
+      // sx={{ maxWidth: 380 }}
     >
-      <CardActionArea>
+      <Box>
         <CardMedia
           component="img"
           height="350"
@@ -33,12 +34,11 @@ const CardComponent: FC<Props> = ({ comic }) => {
             {comic.title}
           </Typography>
         </CardContent>
-      </CardActionArea>
+      </Box>
       <CardActions>
         <NextLink href={`/comics/${comic.id}`}>
           <Button variant="seeMore">Ver detalles</Button>
         </NextLink>
-
         <NextLink href={`/checkout`}>
           <Button variant="buyCard">COMPRAR</Button>
         </NextLink>

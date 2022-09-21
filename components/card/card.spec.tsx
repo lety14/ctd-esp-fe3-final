@@ -1,16 +1,16 @@
 import { render, screen } from "@testing-library/react";
-import character from "dh-marvel/test/mocks/character";
+import { comicMock } from "dh-marvel/test/mocks/comic";
 import CardComponent from "./card.component";
 
 describe("Card component", () => {
   describe("when rendering default component", () => {
     it("should render the card title", () => {
-      render(<CardComponent character={character} />);
+      render(<CardComponent comic={comicMock} />);
       const title = screen.getByText("Abomination (Ultimate)");
       expect(title).toBeInTheDocument();
     });
     it("should render the buttons", () => {
-      render(<CardComponent character={character} />);
+      render(<CardComponent comic={comicMock} />);
       const buttonBuyNow = screen.getByText("Comprar ahora");
       const buttonAddToChart = screen.getByText("Agregar al carrito");
 

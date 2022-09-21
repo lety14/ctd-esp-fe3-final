@@ -85,7 +85,11 @@ export default function StepperForm() {
 
   return (
     <Box sx={{ width: "100%" }}>
-      <Stepper alternativeLabel activeStep={activeStep}>
+      <Stepper
+        alternativeLabel
+        activeStep={activeStep}
+        sx={{ paddingBottom: "50px" }}
+      >
         {steps.map((label, index) => (
           <Step key={label}>
             <StepButton color="inherit" onClick={handleStep(index)}>
@@ -94,8 +98,15 @@ export default function StepperForm() {
           </Step>
         ))}
       </Stepper>
-      <Box sx={{ padding: "50px 20px", width: "900px" }}>
-        <Typography variant="h5">Paso {activeStep + 1}</Typography>
+      <Box>
+        <Typography
+          sx={{
+            paddingBottom: "30px",
+          }}
+          variant="h5"
+        >
+          Paso {activeStep + 1}
+        </Typography>
         {activeStep === 0 && (
           <CustomerDataForm
             data={checkoutData.customer}

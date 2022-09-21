@@ -50,6 +50,7 @@ const ControlledTextInput: FC<ControlledTextInputProps> = ({
       mb={2}
       sx={{
         position: "relative",
+        paddingY: "5px",
       }}
     >
       <TextField
