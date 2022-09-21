@@ -3,7 +3,7 @@ import { FC } from "react";
 import { IComic } from "types/IComic.type";
 
 type CardCheckoutProductProps = {
-  comic: IComic;
+  comic: IComic | undefined;
 };
 
 const CardCheckoutProduct: FC<CardCheckoutProductProps> = ({ comic }) => {

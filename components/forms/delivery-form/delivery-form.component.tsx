@@ -32,9 +32,6 @@ const DeliveryForm: FC<DeliveryFormProps> = ({
     handleNext(data);
   };
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-  useEffect(() => {
     setFocus("address1");
   }, []);
 

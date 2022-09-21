@@ -29,9 +29,6 @@ const CustomerDataForm: FC<CustomerDataProps> = ({
     handleNext(data);
   };
   useEffect(() => {
-    console.log(data);
-  }, [data]);
-  useEffect(() => {
     setFocus("name");
   }, []);
 

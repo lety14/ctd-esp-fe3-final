@@ -24,8 +24,6 @@ interface Props {
 const Comic: NextPage<Props> = ({ comic }) => {
   const router = useRouter();
 
-  const offert = percentageOff(comic.oldPrice, comic.price);
-
   if (router.isFallback === true) {
     return <div>loading...</div>;
   }
@@ -82,20 +80,23 @@ const Comic: NextPage<Props> = ({ comic }) => {
                     display: "flex",
                   }}
                 >
-                  <Typography
-                    variant="h6"
-                    color="text.secondary"
-                    sx={{
-                      textDecoration: "line-through",
-                      marginBottom: "5px",
-                      paddingRight: "15px",
-                    }}
-                  >
-                    ${comic.oldPrice}
-                  </Typography>
-                  {offert > 0 && (
+                  {comic.oldPrice && (
+                    <Typography
+                      variant="h6"
+                      color="text.secondary"
+                      sx={{
+                        textDecoration: "line-through",
+                        marginBottom: "5px",
+                        paddingRight: "15px",
+                      }}
+                    >
+                      ${comic.oldPrice}
+                    </Typography>
+                  )}
+
+                  {percentageOff() > 0 && (
                     <Typography variant="h6" color="text.secondary">
-                      {offert}% OFF!
+                      {percentageOff()}% OFF!
                     </Typography>
                   )}
                 </Box>
@@ -152,13 +153,19 @@ const Comic: NextPage<Props> = ({ comic }) => {
               </AccordionCollapsible>
               <AccordionCollapsible title={"Creadores"}>
                 <Box>
-                  {comic.creators.items.map((creator) => {
-                    return (
-                      <Typography variant="body2" key={creator.name}>
-                        {creator.name} - {creator.role}
-                      </Typography>
-                    );
-                  })}
+                  {comic.creators.items.length ? (
+                    comic.creators.items.map((creator) => {
+                      return (
+                        <Typography variant="body2" key={creator.name}>
+                          {creator.name} - {creator.role}
+                        </Typography>
+                      );
+                    })
+                  ) : (
+                    <Typography variant="body2">
+                      Sin listado de creadores disponible.
+                    </Typography>
+                  )}
                 </Box>
               </AccordionCollapsible>
             </Box>

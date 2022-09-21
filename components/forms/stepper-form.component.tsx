@@ -75,10 +75,6 @@ export default function StepperForm() {
     });
   };
 
-  useEffect(() => {
-    console.log(checkoutData);
-  }, [checkoutData]);
-
   const handleBack = () => {
     activeStep > 0 && setActiveStep(activeStep - 1);
   };
