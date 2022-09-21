@@ -9,6 +9,8 @@ import { IComicResponse } from "types/IComic.type";
 import { getComicsByPage } from "dh-marvel/services/comic/comic.service";
 import { useRouter } from "next/router";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
+import GridLayout from "dh-marvel/components/grid-layout/grid-layoout.component";
+import { Loader } from "dh-marvel/components/loading/loading.component";
 
 interface Props {
   comics: IComicResponse;
@@ -30,7 +32,6 @@ const Index: NextPage<Props> = ({ comics }) => {
         (data: IComicResponse) => {
           if (data.code === 200) {
             setComicsData(data);
-
             setLoading(false);
           }
         }
@@ -40,18 +41,6 @@ const Index: NextPage<Props> = ({ comics }) => {
 
   const pagesQty: number =
     comics?.data?.total !== undefined ? Math.ceil(comics.data.total / 12) : 1;
-
-  const renderResults = () =>
-    (comicsData === undefined
-      ? comics.data?.results
-      : comicsData.data?.results
-    )?.map((comic) => {
-      return (
-        <Grid item xs={12} sm={12} md={6} lg={4} xl={3} key={comic.id}>
-          <CardComponent comic={comic} />
-        </Grid>
-      );
-    });
 
   return (
     <>
@@ -68,20 +57,17 @@ const Index: NextPage<Props> = ({ comics }) => {
         paddingY={15}
         paddingX={{ xs: 3, sm: 4, md: 4 }}
       >
-        {/* <Box > */}
-        <Grid
-          container
-          alignItems="stretch"
-          rowSpacing={{ xs: 3, sm: 2, md: 4 }}
-          columnSpacing={{ sm: 2, md: 4 }}
-        >
-          {renderResults()}
-        </Grid>
+        <GridLayout
+          comics={
+            comicsData === undefined
+              ? comics.data?.results
+              : comicsData.data?.results
+          }
+        />
         <PaginationComponent
           pagesQty={pagesQty}
           setCurrentPage={setCurrentPage}
         />
-        {/* </Box> */}
       </Stack>
     </>
   );
