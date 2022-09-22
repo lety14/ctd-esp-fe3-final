@@ -14,7 +14,7 @@ const Faqs: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Faqs</title>
+        <title>DH-MARVEL</title>
         <meta
           name="description"
           content="Preguntas frecuentes del uso del sitio DH MARVEL"

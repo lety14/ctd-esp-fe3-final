@@ -8,9 +8,9 @@ export const comicMock = {
   title: "Marvel Previews (2017)",
   issueNumber: 0,
   variantDescription: "",
-  description: "",
+  description: "descripción...",
   modified: "2019-11-07T08:46:15-0500",
-  isbn: "",
+  isbn: "123456",
   upc: "75960608839302811",
   diamondCode: "",
   ean: "",
@@ -121,7 +121,12 @@ export const comicMock = {
     available: 0,
     collectionURI:
       "http://gateway.marvel.com/v1/public/comics/82967/characters",
-    items: [],
+    items: [
+      {
+        resourceURI: "http://gateway.marvel.com/v1/public/characters/1009610",
+        name: "Spider-Man (Peter Parker)",
+      },
+    ],
     returned: 0,
   },
   stories: {

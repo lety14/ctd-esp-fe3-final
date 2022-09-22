@@ -2,7 +2,8 @@ import "@testing-library/jest-dom";
 import { comic } from "dh-marvel/test/mocks/comic";
 import comicWithoutStock from "dh-marvel/test/mocks/comicWithoutStock";
 import { server } from "dh-marvel/test/server";
-
+import { createMocks } from "node-mocks-http";
+import handleComics from "dh-marvel/pages/api/comics/index.route";
 beforeAll(() => server.listen());
 afterEach(() => server.resetHandlers());
 afterAll(() => server.close());

@@ -1,8 +1,6 @@
-import { queryByLabelText, render, screen } from "@testing-library/react";
-import character from "dh-marvel/test/mocks/character";
+import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import PaginationComponent from "./pagination.component";
-import CardComponent from "./pagination.component";
 
 describe("Pagination component", () => {
   describe("when rendering default component", () => {

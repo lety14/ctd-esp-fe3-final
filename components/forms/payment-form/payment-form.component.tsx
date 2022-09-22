@@ -5,7 +5,7 @@ import ControlledTextInput from "dh-marvel/components/controlled-text-input/Cont
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import paymentSchema from "./schema";
-import { Box, Grid } from "@mui/material";
+import { Box, Stack } from "@mui/material";
 import StepperNavigation from "../stepper-navigation.component";
 import { ICard } from "types/ICheckout.type";
 
@@ -59,51 +59,44 @@ const PaymentForm: FC<PaymentFormProps> = ({
 
   return (
     <Box id="PaymentForm">
-      <Grid
-        container
-        alignItems="stretch"
-        rowSpacing={{ xs: 3, sm: 2, md: 4 }}
-        columnSpacing={{ sm: 2, md: 12 }}
-        // columns={{ xs: 2, sm: 8, md: 8, lg: 12 }}
-      >
-        <Grid item xs={12} sm={12} md={4}>
-          <Cards
-            cvc={payment.cvc}
-            expiry={payment.expDate}
-            name={payment.nameOnCard}
-            number={payment.number}
+      <Box paddingBottom={5}>
+        <Cards
+          cvc={payment.cvc}
+          expiry={payment.expDate}
+          name={payment.nameOnCard}
+          number={payment.number}
+        />
+      </Box>
+
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <FormProvider {...methods}>
+          <ControlledTextInput
+            name="number"
+            regex={regexNumber}
+            label="Número de la tarjeta"
+            maxLength={16}
           />
-        </Grid>
-        <Grid item xs={12} sm={12} md={8}>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <FormProvider {...methods}>
-              <ControlledTextInput
-                name="number"
-                regex={regexNumber}
-                label="Número de la tarjeta"
-                maxLength={16}
-              />
-              <ControlledTextInput
-                name="nameOnCard"
-                label="Nombre como figura en la tarjeta"
-              />
-              <ControlledTextInput
-                name="expDate"
-                label="Fecha expiración"
-                regex={regexNumber}
-                maxLength={4}
-              />
-              <ControlledTextInput
-                type="password"
-                regex={regexNumber}
-                name="cvc"
-                label="CVC"
-                maxLength={3}
-              />
-            </FormProvider>
-          </form>
-        </Grid>
-      </Grid>
+          <ControlledTextInput
+            name="nameOnCard"
+            label="Nombre como figura en la tarjeta"
+          />
+          <Stack direction="row" spacing={5}>
+            <ControlledTextInput
+              name="expDate"
+              label="Fecha expiración"
+              regex={regexNumber}
+              maxLength={4}
+            />
+            <ControlledTextInput
+              type="password"
+              regex={regexNumber}
+              name="cvc"
+              label="CVC"
+              maxLength={3}
+            />
+          </Stack>
+        </FormProvider>
+      </form>
 
       <StepperNavigation
         activeStep={activeStep}
