@@ -1,12 +1,7 @@
 import React, { FC } from "react";
-import {
-  Box,
-  Button,
-} from "@mui/material";
+import { Box, Button } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
-
-const steps = ["Datos Personales", "Dirección de entrega", "Datos del pago"];
 
 type StepperNavigationProps = {
   activeStep: number;
@@ -42,11 +37,7 @@ const StepperNavigation: FC<StepperNavigationProps> = ({
             SIGUIENTE
           </Button>
         ) : (
-          <Button
-            onClick={handleNext}
-            sx={{ mr: 1 }}
-            variant="finalStepBuy"
-          >
+          <Button onClick={handleNext} sx={{ mr: 1 }} variant="finalStepBuy">
             FINALIZAR
           </Button>
         )}

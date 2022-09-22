@@ -1,8 +1,7 @@
-import { findByText, render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { renderWithReactHookForm } from "dh-marvel/test/form-helper";
 import userEvent from "@testing-library/user-event";
 import CustomerDataForm from "./customer-data-form.component";
-import { ICustomer } from "types/ICheckout.type";
 
 const defaultData = {
   name: "",

@@ -1,20 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Box,
   Typography,
   Stepper,
   Step,
   StepButton,
-  Stack,
+  Alert,
 } from "@mui/material";
 import DeliveryForm from "./delivery-form/delivery-form.component";
 import PaymentForm from "./payment-form/payment-form.component";
 import { IAddress, ICard, ICheckout, ICustomer } from "types/ICheckout.type";
 import CustomerDataForm from "./customer-form/customer-data-form.component";
+import { postCheckout } from "dh-marvel/services/checkout/checkout.service";
+import { IComic } from "types/IComic.type";
+import catchError from "./handle-checkout-errors";
+import { useRouter } from "next/router";
 
 const steps = ["Datos Personales", "Dirección de entrega", "Datos del pago"];
 
-export default function StepperForm() {
+type StepperForm = {
+  comic?: IComic;
+};
+
+const StepperForm: FC<StepperForm> = ({ comic }) => {
   const defaultValue = {
     customer: {
       name: "",
@@ -40,12 +48,28 @@ export default function StepperForm() {
       price: 0,
     },
   };
+  const router = useRouter();
   const [activeStep, setActiveStep] = useState<number>(0);
   const [checkoutData, setCheckoutData] = useState<ICheckout>(defaultValue);
+  const [error, setError] = useState<string>("");
 
   const handleStep = (step: number) => () => {
     setActiveStep(step);
   };
+
+  useEffect(() => {
+    {
+      comic &&
+        setCheckoutData({
+          ...checkoutData,
+          order: {
+            name: comic.title,
+            image: `${comic?.thumbnail.path}.${comic.thumbnail.extension}`,
+            price: comic.price,
+          },
+        });
+    }
+  }, [comic]);
 
   const handleSubmitCustomerForm = (data: ICustomer) => {
     setCheckoutData({
@@ -72,6 +96,35 @@ export default function StepperForm() {
       card: {
         ...data,
       },
+    });
+    const dataForm = {
+      ...checkoutData,
+      card: {
+        ...data,
+      },
+    };
+    const response = postCheckout(dataForm);
+
+    response.then((response) => {
+      if (!response.data) {
+        const error = catchError(response);
+        setError(error);
+        return;
+      } else {
+        const customer = response.data.customer;
+        const order = response.data.order;
+
+        localStorage.setItem(
+          "checkoutData",
+          JSON.stringify({
+            customer: customer,
+            order: order,
+          })
+        );
+        router.push({
+          pathname: "/confirmacion-compra",
+        });
+      }
     });
   };
 
@@ -126,6 +179,18 @@ export default function StepperForm() {
           />
         )}
       </Box>
+      {error !== "" && (
+        <Alert
+          severity="error"
+          sx={{
+            marginTop: "30px",
+          }}
+        >
+          {error}
+        </Alert>
+      )}
     </Box>
   );
-}
+};
+
+export default StepperForm;

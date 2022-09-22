@@ -1,4 +1,4 @@
-import { findByText, render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { renderWithReactHookForm } from "dh-marvel/test/form-helper";
 import userEvent from "@testing-library/user-event";
 import DeliveryForm from "./delivery-form.component";
@@ -11,7 +11,7 @@ const defaultData = {
   zipCode: "",
 };
 
-describe("PersonalForm component", () => {
+describe("DeliveryForm component", () => {
   describe("when rendering default", () => {
     it("should render all the inputs", () => {
       renderWithReactHookForm(
