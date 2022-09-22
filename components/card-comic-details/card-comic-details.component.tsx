@@ -1,9 +1,7 @@
 import type { NextPage } from "next";
 import { Box } from "@mui/system";
-import { Button, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import { IComic } from "types/IComic.type";
-import NextLink from "next/link";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
 import { percentageOff } from "../../utils/calcPercentageOff";
 
 interface Props {
@@ -11,6 +9,7 @@ interface Props {
 }
 
 const CardComicDetails: NextPage<Props> = ({ comic }) => {
+  const offert = percentageOff(comic?.oldPrice, comic?.price);
   return (
     <Box
       sx={{
@@ -23,9 +22,11 @@ const CardComicDetails: NextPage<Props> = ({ comic }) => {
       <Typography gutterBottom variant="h5">
         {comic.title}
       </Typography>
-      <Typography gutterBottom variant="subtitle1" component="div">
-        ISBN: {comic.isbn}
-      </Typography>
+      {comic.isbn !== "" && (
+        <Typography gutterBottom variant="subtitle1" component="div">
+          ISBN: {comic.isbn}
+        </Typography>
+      )}
       <Box
         sx={{
           padding: "30px 0px",
@@ -45,9 +46,9 @@ const CardComicDetails: NextPage<Props> = ({ comic }) => {
           </Typography>
         )}
 
-        {percentageOff() > 0 && (
+        {offert > 0 && (
           <Typography variant="h6" color="text.secondary">
-            {percentageOff()}% OFF!
+            {offert}% OFF!
           </Typography>
         )}
       </Box>

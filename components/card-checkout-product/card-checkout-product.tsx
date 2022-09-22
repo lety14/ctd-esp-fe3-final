@@ -20,6 +20,7 @@ const CardCheckoutProduct: FC<CardCheckoutProductProps> = ({ comic }) => {
             sx={{ height: 400, minWidth: "100%" }}
             animation="wave"
             variant="rectangular"
+            data-testid="skeleton-image"
           />
         ) : (
           <Box
@@ -51,6 +52,7 @@ const CardCheckoutProduct: FC<CardCheckoutProductProps> = ({ comic }) => {
             sx={{ height: 25, minWidth: "100%" }}
             animation="wave"
             variant="rectangular"
+            data-testid="skeleton-title"
           />
         ) : (
           <Typography variant="h5">{comic.title}</Typography>
@@ -70,6 +72,7 @@ const CardCheckoutProduct: FC<CardCheckoutProductProps> = ({ comic }) => {
             sx={{ height: 25, minWidth: "100%" }}
             animation="wave"
             variant="rectangular"
+            data-testid="skeleton-price"
           />
         ) : (
           <>
