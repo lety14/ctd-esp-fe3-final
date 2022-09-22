@@ -20,7 +20,6 @@ const CustomerDataForm: FC<CustomerDataProps> = ({
 }: CustomerDataProps) => {
   const methods = useForm<ICustomer>({
     resolver: yupResolver(personalDataSchema),
-    // defaultValues: { ...defaultValue },
     defaultValues: { ...data },
   });
   const { setFocus, handleSubmit } = methods;

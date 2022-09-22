@@ -124,7 +124,7 @@ Al realizar una compra satisfactoria, se deberá mostrar la pantalla de **Orden 
 
 Se deberá tener en cuenta lo siguiente:
 
-- Deberá estar en la ruta `/confirmacion-compra`.
+- Deberá estar en la ruta `/success`.
 - Mostrar una sección superior verde con el mensaje `Que disfrutes tu compra`
 - Deberá disponer de la información del comic (Nombre e imagen principal) de forma destacada y grande.
 - Deberá mostrar una sección inferior, con los datos personales, la dirección de entrega y el precio pagado por el cómic.

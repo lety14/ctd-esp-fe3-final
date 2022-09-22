@@ -1,21 +1,15 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Box } from "@mui/system";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
 import { IComic, IComicResponse } from "types/IComic.type";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import { styled } from "@mui/material/styles";
-import AccordionCollapsible from "dh-marvel/components/accordion-collapsible/accordion-collapsible.component";
-import { getIdfromURI } from "../../utils/getIdFromURI";
-import { percentageOff } from "../../utils/calcPercentageOff";
-const Img = styled("img")({
-  margin: "auto",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
+import { Loader } from "dh-marvel/components/loading/loading.component";
+import AccordionComic from "dh-marvel/components/accordion-comic/accordion-comic.component";
+import CardComicDetails from "dh-marvel/components/card-comic-details/card-comic-details.component";
 
 interface Props {
   comic: IComic;
@@ -25,153 +19,82 @@ const Comic: NextPage<Props> = ({ comic }) => {
   const router = useRouter();
 
   if (router.isFallback === true) {
-    return <div>loading...</div>;
+    return <Loader />;
   }
 
   return (
     <>
       <Head>
-        <title>{comic.title}</title>
+        <title>DH-MARVEL</title>
         <meta
           name="description"
           content={`Comic de Marvel.${comic.title}.${comic.series}`}
         />
       </Head>
-      <Box
+      <Stack
         component="section"
         maxWidth="xl"
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
         sx={{
-          padding: "50px 20px",
+          padding: "100px 20px",
         }}
       >
-        <Grid container spacing={4}>
+        <Grid container spacing={4} maxWidth="xl">
           <Grid item xs={12} sm={12} md={6}>
             <Box
-              component={Img}
-              alt={comic.title}
-              src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
               sx={{
-                boxShadow: "0.2px 0.2px 10px rgba(0,0,0,0.2)",
+                position: "relative",
+                width: "100%",
+                justifyContent: "center",
               }}
-            />
+            >
+              <Box
+                component="img"
+                alt={comic.title}
+                src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+                sx={{
+                  boxShadow: "0.2px 0.2px 10px rgba(0,0,0,0.2)",
+                  margin: "auto",
+                  maxWidth: "100%",
+                  maxHeight: "100%",
+                }}
+              />
+            </Box>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
+            <CardComicDetails comic={comic} />
             <Box
               sx={{
                 paddingBottom: "90px",
               }}
             >
-              <Typography gutterBottom variant="subtitle1" component="div">
-                Serie: {comic.series.name}
-              </Typography>
-              <Typography gutterBottom variant="h5">
-                {comic.title}
-              </Typography>
-              <Typography gutterBottom variant="subtitle1" component="div">
-                ISBN: {comic.isbn}
-              </Typography>
-              <Box
-                sx={{
-                  padding: "30px 0px",
-                }}
-              >
-                <Box
-                  sx={{
-                    display: "flex",
-                  }}
+              {comic.stock > 0 ? (
+                <NextLink
+                  href={{ pathname: "/checkout/", query: `comic=${comic.id}` }}
                 >
-                  {comic.oldPrice && (
-                    <Typography
-                      variant="h6"
-                      color="text.secondary"
-                      sx={{
-                        textDecoration: "line-through",
-                        marginBottom: "5px",
-                        paddingRight: "15px",
-                      }}
-                    >
-                      ${comic.oldPrice}
-                    </Typography>
-                  )}
-
-                  {percentageOff() > 0 && (
-                    <Typography variant="h6" color="text.secondary">
-                      {percentageOff()}% OFF!
-                    </Typography>
-                  )}
-                </Box>
-
-                <Typography variant="h4">${comic.price}</Typography>
-              </Box>
-
-              <NextLink
-                href={{ pathname: "/checkout/", query: `comic=${comic.id}` }}
-              >
+                  <Button
+                    variant="buyCard"
+                    endIcon={<AddShoppingCartOutlinedIcon />}
+                  >
+                    COMPRAR
+                  </Button>
+                </NextLink>
+              ) : (
                 <Button
-                  variant="buyCard"
+                  disabled
+                  variant="buyCardDisabled"
                   endIcon={<AddShoppingCartOutlinedIcon />}
                 >
-                  COMPRAR
+                  SIN STOCK
                 </Button>
-              </NextLink>
+              )}
             </Box>
-
-            <Box>
-              <AccordionCollapsible title={"Descripcion"}>
-                <Typography variant="body2" gutterBottom>
-                  {comic.description !== null && comic.description !== ""
-                    ? comic.description
-                    : "Sin descripción disponible."}
-                </Typography>
-              </AccordionCollapsible>
-              <AccordionCollapsible title={"Personajes"}>
-                <Box>
-                  {comic.characters.items.length ? (
-                    comic.characters.items.map((character) => {
-                      return (
-                        <NextLink
-                          href={`/characters/${getIdfromURI(
-                            character.resourceURI
-                          )}`}
-                          key={character.name}
-                        >
-                          <Typography
-                            variant="body2"
-                            sx={{ cursor: "pointer" }}
-                          >
-                            {character.name}
-                          </Typography>
-                        </NextLink>
-                      );
-                    })
-                  ) : (
-                    <Typography variant="body2">
-                      Sin listado de personajes disponible.
-                    </Typography>
-                  )}
-                </Box>
-              </AccordionCollapsible>
-              <AccordionCollapsible title={"Creadores"}>
-                <Box>
-                  {comic.creators.items.length ? (
-                    comic.creators.items.map((creator) => {
-                      return (
-                        <Typography variant="body2" key={creator.name}>
-                          {creator.name} - {creator.role}
-                        </Typography>
-                      );
-                    })
-                  ) : (
-                    <Typography variant="body2">
-                      Sin listado de creadores disponible.
-                    </Typography>
-                  )}
-                </Box>
-              </AccordionCollapsible>
-            </Box>
+            <AccordionComic comic={comic} />
           </Grid>
         </Grid>
-      </Box>
+      </Stack>
     </>
   );
 };
@@ -184,6 +107,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       comic: data,
     },
+    revalidate: 10,
   };
 };
 

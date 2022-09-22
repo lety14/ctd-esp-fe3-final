@@ -4,6 +4,7 @@ declare module "@mui/material/Button" {
   interface ButtonPropsVariantOverrides {
     buyCard: true;
     buyCardDisabled: true;
+    link: true;
     seeMore: true;
     nextStepBuy: true;
     finalStepBuy: true;
@@ -38,16 +39,6 @@ export const theme = createTheme({
   components: {
     /* ---- CARD ---- */
     MuiCard: {
-      // styleOverrides: {
-      //   root: {
-      //     height: "100%",
-      //     display: "flex",
-      //     flexDirection: "column",
-      //     justifyContent: "space-between",
-      //     border: "2px solid #000",
-      //     borderRadius: 0,
-      //   },
-      // },
       variants: [
         {
           props: { variant: "outlined" },
@@ -154,6 +145,21 @@ export const theme = createTheme({
             borderRadius: 0,
             fontSize: 13,
             padding: "0px",
+          },
+        },
+        {
+          props: { variant: "link" },
+          style: {
+            display: "block",
+            textTransform: "none",
+            fontWeight: "normal",
+            textAlign: "left",
+            fontSize: "13px",
+            padding: "4px 5px",
+            "&:hover": {
+              backgroundColor: "#ddedff",
+              color: "#3c52b2",
+            },
           },
         },
       ],

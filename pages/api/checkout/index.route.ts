@@ -10,9 +10,9 @@ import {
 import { ICheckout } from "types/ICheckout.type";
 
 export const invalidAddress = "invalid";
-export const validCard = "4242 4242 4242 4242".replace(" ", "");
-export const withoutFundsCard = "4111 4111 4111 4111".replace(" ", "");
-export const withoutAuthorizationCard = "4000 4000 4000 4000".replace(" ", "");
+export const validCard = "4242424242424242";
+export const withoutFundsCard = "4111411141114111";
+export const withoutAuthorizationCard = "4000400040004000";
 
 type Data =
   | {
