@@ -8,6 +8,24 @@ import MuiAccordionSummary, {
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 
+interface Props {
+  title: string;
+  children: JSX.Element;
+}
+
+const AccordionCollapsible = ({ title, children }: Props) => {
+  return (
+    <Accordion>
+      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+        <Typography variant="body2">{title}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>{children}</AccordionDetails>
+    </Accordion>
+  );
+};
+
+export default AccordionCollapsible;
+
 const Accordion = styled((props: AccordionProps) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
 ))({
@@ -39,21 +57,3 @@ const AccordionSummary = styled((props: AccordionSummaryProps) => (
 const AccordionDetails = styled(MuiAccordionDetails)({
   padding: "15px",
 });
-
-interface Props {
-  title: string;
-  children: JSX.Element;
-}
-
-const AccordionCollapsible = ({ title, children }: Props) => {
-  return (
-    <Accordion>
-      <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-        <Typography variant="body2">{title}</Typography>
-      </AccordionSummary>
-      <AccordionDetails>{children}</AccordionDetails>
-    </Accordion>
-  );
-};
-
-export default AccordionCollapsible;

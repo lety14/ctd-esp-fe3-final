@@ -1,16 +1,16 @@
-import type { NextPage } from "next";
 import { Box } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import { IComic } from "types/IComic.type";
 import NextLink from "next/link";
 import AccordionCollapsible from "../accordion-collapsible/accordion-collapsible.component";
-import { getIdfromURI } from "utils/getIdFromURI";
+import { getIdfromURI } from "../../utils/getIdFromURI";
+import { FC } from "react";
 
 interface Props {
   comic: IComic;
 }
 
-const AccordionComic: NextPage<Props> = ({ comic }) => {
+const AccordionComic: FC<Props> = ({ comic }) => {
   return (
     <Box>
       <AccordionCollapsible title={"Descripción"}>
