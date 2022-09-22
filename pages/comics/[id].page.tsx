@@ -1,24 +1,15 @@
 import type { GetStaticPaths, GetStaticProps, NextPage } from "next";
 import Head from "next/head";
 import { Box } from "@mui/system";
-import { Button, Grid, Typography } from "@mui/material";
+import { Button, Grid, Stack } from "@mui/material";
 import { getComic, getComics } from "dh-marvel/services/marvel/marvel.service";
 import { IComic, IComicResponse } from "types/IComic.type";
 import { useRouter } from "next/router";
 import NextLink from "next/link";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import { styled } from "@mui/material/styles";
-import AccordionCollapsible from "dh-marvel/components/accordion-collapsible/accordion-collapsible.component";
-import { getIdfromURI } from "../../utils/getIdFromURI";
-import { percentageOff } from "../../utils/calcPercentageOff";
 import { Loader } from "dh-marvel/components/loading/loading.component";
 import AccordionComic from "dh-marvel/components/accordion-comic/accordion-comic.component";
 import CardComicDetails from "dh-marvel/components/card-comic-details/card-comic-details.component";
-const Img = styled("img")({
-  margin: "auto",
-  maxWidth: "100%",
-  maxHeight: "100%",
-});
 
 interface Props {
   comic: IComic;
@@ -34,20 +25,23 @@ const Comic: NextPage<Props> = ({ comic }) => {
   return (
     <>
       <Head>
-        <title>DH-Marvel</title>
+        <title>DH-MARVEL</title>
         <meta
           name="description"
           content={`Comic de Marvel.${comic.title}.${comic.series}`}
         />
       </Head>
-      <Box
+      <Stack
         component="section"
         maxWidth="xl"
+        direction="column"
+        justifyContent="flex-start"
+        alignItems="center"
         sx={{
-          padding: "50px 20px",
+          padding: "100px 20px",
         }}
       >
-        <Grid container spacing={4}>
+        <Grid container spacing={4} maxWidth="xl">
           <Grid item xs={12} sm={12} md={6}>
             <Box
               sx={{
@@ -57,11 +51,14 @@ const Comic: NextPage<Props> = ({ comic }) => {
               }}
             >
               <Box
-                component={Img}
+                component="img"
                 alt={comic.title}
                 src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
                 sx={{
                   boxShadow: "0.2px 0.2px 10px rgba(0,0,0,0.2)",
+                  margin: "auto",
+                  maxWidth: "100%",
+                  maxHeight: "100%",
                 }}
               />
             </Box>
@@ -97,7 +94,7 @@ const Comic: NextPage<Props> = ({ comic }) => {
             <AccordionComic comic={comic} />
           </Grid>
         </Grid>
-      </Box>
+      </Stack>
     </>
   );
 };
@@ -110,6 +107,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     props: {
       comic: data,
     },
+    revalidate: 10,
   };
 };
 

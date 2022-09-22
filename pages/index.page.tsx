@@ -1,8 +1,6 @@
 import type { NextPage } from "next";
 import Head from "next/head";
-import CardComponent from "dh-marvel/components/card/card.component";
-import { Box } from "@mui/system";
-import { Grid, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import PaginationComponent from "dh-marvel/components/pagination/pagination.component";
 import { useEffect, useState } from "react";
 import { IComicResponse } from "types/IComic.type";
@@ -10,7 +8,6 @@ import { getComicsByPage } from "dh-marvel/services/comic/comic.service";
 import { useRouter } from "next/router";
 import { getComics } from "dh-marvel/services/marvel/marvel.service";
 import GridLayout from "dh-marvel/components/grid-layout/grid-layoout.component";
-import { Loader } from "dh-marvel/components/loading/loading.component";
 
 interface Props {
   comics: IComicResponse;
@@ -22,7 +19,10 @@ const Index: NextPage<Props> = ({ comics }) => {
   const router = useRouter();
   const [currentPage, setCurrentPage] = useState<number | null>(null);
   const [comicsData, setComicsData] = useState<IComicResponse>();
-  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    localStorage.clear();
+  }, []);
 
   useEffect(() => {
     if (currentPage !== null) {
@@ -32,7 +32,6 @@ const Index: NextPage<Props> = ({ comics }) => {
         (data: IComicResponse) => {
           if (data.code === 200) {
             setComicsData(data);
-            setLoading(false);
           }
         }
       );
