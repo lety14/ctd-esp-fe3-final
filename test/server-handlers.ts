@@ -1,7 +1,7 @@
 import { rest } from "msw";
 import comics from "dh-marvel/test/mocks/comics";
 import character from "dh-marvel/test/mocks/character";
-import { comic } from "dh-marvel/test/mocks/comic";
+import { comic, comicMock } from "dh-marvel/test/mocks/comic";
 import comicsWithOffsetAndLimit from "dh-marvel/test/mocks/comicsWithOffsetAndLimit";
 import comicWithoutStock from "dh-marvel/test/mocks/comicWithoutStock";
 
@@ -18,6 +18,7 @@ const handlers = [
     if (id === "1") return res(ctx.json({ data: { results: [comic] } }));
     if (id === "10")
       return res(ctx.json({ data: { results: [comicWithoutStock] } }));
+    if (id === "82967") return res(ctx.json(comicMock));
     return res(ctx.json({ data: { results: [] } }));
   }),
   rest.get("/marvel/api/characters/:id", async (req, res, ctx) => {
